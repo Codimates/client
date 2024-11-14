@@ -1,9 +1,10 @@
 import React from 'react'
+import Headbar from '../components/HomePage/Headbar'
 
 export default function HomePage() {
   return (
     <div>
-      <h1>hiii</h1>
+      <Headbar/>
     </div>
   )
 }
