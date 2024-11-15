@@ -1,13 +1,17 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import LOGO from '../../images/logo.png';
 import { FaRegUser, FaGripLines } from "react-icons/fa";
 
 export default function Headbar() {
-  // State to toggle the dropdown menu
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const navigate = useNavigate();
 
   // Toggle the dropdown
   const toggleDropdown = () => setIsDropdownOpen(!isDropdownOpen);
+
+  // Navigate to /sign
+  const handleSignInClick = () => navigate('/signin');
 
   return (
     <div className='bg-[#1A1A1D] shadow-md'>
@@ -24,7 +28,10 @@ export default function Headbar() {
           <button className='text-white transition-colors duration-300 hover:text-gray-300'>
             Contact us
           </button>
-          <button className='flex items-center px-4 py-2 text-white transition-all duration-300 border border-gray-500 rounded-lg hover:bg-gray-700 hover:shadow-lg'>
+          <button
+            onClick={handleSignInClick}
+            className='flex items-center px-4 py-2 text-white transition-all duration-300 border border-gray-500 rounded-lg hover:bg-gray-700 hover:shadow-lg'
+          >
             <FaRegUser className='mr-2' />
             <span>Sign in</span>
           </button>
@@ -47,7 +54,10 @@ export default function Headbar() {
           <button className='w-full py-2 text-left text-white transition-colors duration-300 hover:text-gray-300'>
             Contact us
           </button>
-          <button className='flex items-center px-4 py-2 mt-2 text-white transition-all duration-300 border border-gray-500 rounded-lg hover:bg-gray-700 hover:shadow-lg'>
+          <button
+            onClick={handleSignInClick}
+            className='flex items-center px-4 py-2 mt-2 text-white transition-all duration-300 border border-gray-500 rounded-lg hover:bg-gray-700 hover:shadow-lg'
+          >
             <FaRegUser className='mr-2' />
             <span>Sign in</span>
           </button>
