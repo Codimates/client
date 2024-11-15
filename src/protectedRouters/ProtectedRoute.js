@@ -1,15 +1,36 @@
 // ProtectedRoute.js
-import React, { useContext } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
-import { UserContext } from '../context/UserContext';
+import axios from 'axios';
 
 const ProtectedRoute = ({ children }) => {
-  const { user } = useContext(UserContext);
   const location = useLocation();
-  //const token = localStorage.getItem('authToken');
+  const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
+  useEffect(() => {
+    const verifyUser = async () => {
+      try {
+        const res = await axios.get('/user/profile', {
+          withCredentials: true
+        });
+        setUser(res.data);
+        setLoading(false);
+      } catch (error) {
+        console.error('Error verifying user:', error);
+        setUser(null);
+        setLoading(false);
+      }
+    };
 
-  if (!user ) {
+    verifyUser();
+  }, []);
+
+  if (loading) {
+    return <div>Loading...</div>; // Or any loading indicator
+  }
+
+  if (!user) {
     return <Navigate to="/" state={{ from: location }} replace />;
   }
 
@@ -17,4 +38,3 @@ const ProtectedRoute = ({ children }) => {
 };
 
 export default ProtectedRoute;
-

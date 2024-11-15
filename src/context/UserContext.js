@@ -32,6 +32,8 @@ export default function UserContextProvider({ children }) {
         setUser(null);
         // Remove user from local storage
         localStorage.removeItem('user');
+        //navigate homepage
+        window.location.href = '/';
       })
       .catch(err => console.log(err));
   };
