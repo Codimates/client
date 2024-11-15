@@ -28,7 +28,7 @@ export default function SignCompo() {
                   navigate('/home');
                   break;
               default:
-                  toast.error('you havent customer role');
+                  toast.error('No user found');
           }
       }
     } catch (error) {
