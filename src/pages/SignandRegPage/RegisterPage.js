@@ -1,9 +1,10 @@
 import React from 'react'
+import RegisterCompo from '../../components/userRegAndSignCompo/RegisterCompo'
 
 export default function RegisterPage() {
   return (
     <div>
-      <h1>Register</h1>
+      <RegisterCompo/>
     </div>
   )
 }
