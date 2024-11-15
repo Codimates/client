@@ -6,9 +6,10 @@ import {Toaster} from 'react-hot-toast'
 import HomePage from './pages/HomePage';
 import SignPage from './pages/SignandRegPage/SignPage';
 import RegisterPage from './pages/SignandRegPage/RegisterPage';
+import LandingPage from './pages/customerPages/LandingPage';
 
 
-axios.defaults.baseURL = 'http://localhost:4000';
+axios.defaults.baseURL = 'http://localhost:4001';
 axios.defaults.withCredentials = true
 
 function App() {
@@ -21,6 +22,8 @@ function App() {
           <Route path="/" element={<HomePage/>} />
           <Route path='/signin' element={<SignPage/>}/>
           <Route path='/register' element={<RegisterPage/>}/>
+
+          <Route path='/home' element={<LandingPage/>}/>
           
           
         </Routes>
