@@ -28,7 +28,7 @@ export default function SignCompo() {
                   navigate('/home');
                   break;
               default:
-                  toast.error('Invalid role');
+                  toast.error('you havent customer role');
           }
       }
     } catch (error) {
