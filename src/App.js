@@ -4,6 +4,8 @@ import './App.css';
 import axios from 'axios';
 import {Toaster} from 'react-hot-toast'
 import HomePage from './pages/HomePage';
+import SignPage from './pages/SignandRegPage/SignPage';
+import RegisterPage from './pages/SignandRegPage/RegisterPage';
 
 
 axios.defaults.baseURL = 'http://localhost:4000';
@@ -17,7 +19,10 @@ function App() {
         <Routes>
 
           <Route path="/" element={<HomePage/>} />
-
+          <Route path='/signin' element={<SignPage/>}/>
+          <Route path='/register' element={<RegisterPage/>}/>
+          
+          
         </Routes>
       </BrowserRouter>
     </div>
