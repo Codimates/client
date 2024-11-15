@@ -1,9 +1,12 @@
 import React from 'react'
+import SignCompo from '../../components/userRegAndSignCompo/SignCompo'
 
 export default function SignPage() {
   return (
     <div>
-      <h1>hiiii</h1>
+      <div>
+        <SignCompo/>
+      </div>
     </div>
   )
 }
