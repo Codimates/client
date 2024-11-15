@@ -15,7 +15,7 @@ export default function SignCompo() {
     e.preventDefault();
     const { email, password } = data;
     try {
-      const response = await axios.post('/login', { email, password });
+      const response = await axios.post('/user/login', { email, password });
       const userData = response.data;
       if (userData.error) {
           toast.error(userData.error);

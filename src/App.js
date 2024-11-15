@@ -9,7 +9,7 @@ import RegisterPage from './pages/SignandRegPage/RegisterPage';
 import LandingPage from './pages/customerPages/LandingPage';
 
 
-axios.defaults.baseURL = 'http://localhost:4001';
+axios.defaults.baseURL = 'http://localhost:4000';
 axios.defaults.withCredentials = true
 
 function App() {
