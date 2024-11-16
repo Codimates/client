@@ -3,6 +3,7 @@ import axios from 'axios';
 import { FaUser, FaEnvelope, FaLock, FaPhone, FaAddressCard, FaUserPlus } from 'react-icons/fa';
 import { toast } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import User from '../../images/user.jpg'; // Default image path
 
 export default function RegisterCompo() {
   const navigate = useNavigate();
@@ -14,11 +15,12 @@ export default function RegisterCompo() {
     password: '',
     confirmPassword: '',
     address: '',
+    image: User, // Default image
   });
 
   const registerUser = async (e) => {
     e.preventDefault();
-    const { fname, lname, email, phone_number, password, confirmPassword, address } = data;
+    const { fname, lname, email, phone_number, password, confirmPassword, address, image } = data;
 
     if (password !== confirmPassword) {
       toast.error('Passwords do not match!');
@@ -33,6 +35,7 @@ export default function RegisterCompo() {
         phone_number,
         password,
         address,
+        image, // Send default image
       });
 
       const { message } = response.data;
@@ -54,21 +57,23 @@ export default function RegisterCompo() {
   };
 
   return (
-    <div className='flex items-center justify-center min-h-screen'>
-      <div className='w-full max-w-lg p-8 space-y-6 bg-[#19191A] rounded-lg shadow-md border border-orange-500'>
-        <h2 className='text-2xl font-semibold text-center text-white'>Register</h2>
-        <form className='space-y-4' onSubmit={registerUser}>
+    <div className="flex items-center justify-center min-h-screen">
+      <div className="w-full max-w-lg p-8 space-y-6 bg-[#19191A] bg-opacity-50 rounded-lg shadow-md border border-orange-500">
+        <h2 className="text-2xl font-semibold text-center text-white">Register</h2>
+        <form className="space-y-4" onSubmit={registerUser}>
           {/* First Name */}
           <div>
-            <label htmlFor='fname' className='block text-sm font-medium text-white'>First Name</label>
-            <div className='relative mt-1'>
-              <FaUser className='absolute text-orange-500 transform -translate-y-1/2 top-1/2 left-3' />
+            <label htmlFor="fname" className="block text-sm font-medium text-white">
+              First Name
+            </label>
+            <div className="relative mt-1">
+              <FaUser className="absolute text-orange-500 transform -translate-y-1/2 top-1/2 left-3" />
               <input
-                type='text'
-                name='fname'
-                id='fname'
-                placeholder='Enter your first name'
-                className='w-full pl-10 pr-4 py-2 text-sm text-white bg-[#19191A] border border-gray-600 rounded-lg focus:outline-none focus:border-yellow-500 h-12'
+                type="text"
+                name="fname"
+                id="fname"
+                placeholder="Enter your first name"
+                className="w-full pl-10 pr-4 py-2 text-sm text-white bg-[#19191A] border border-gray-600 rounded-lg focus:outline-none focus:border-yellow-500 h-12"
                 value={data.fname}
                 onChange={handleInputChange}
               />
@@ -77,15 +82,17 @@ export default function RegisterCompo() {
 
           {/* Last Name */}
           <div>
-            <label htmlFor='lname' className='block text-sm font-medium text-white'>Last Name</label>
-            <div className='relative mt-1'>
-              <FaUser className='absolute text-orange-500 transform -translate-y-1/2 top-1/2 left-3' />
+            <label htmlFor="lname" className="block text-sm font-medium text-white">
+              Last Name
+            </label>
+            <div className="relative mt-1">
+              <FaUser className="absolute text-orange-500 transform -translate-y-1/2 top-1/2 left-3" />
               <input
-                type='text'
-                name='lname'
-                id='lname'
-                placeholder='Enter your last name'
-                className='w-full pl-10 pr-4 py-2 text-sm text-white bg-[#19191A] border border-gray-600 rounded-lg focus:outline-none focus:border-yellow-500 h-12'
+                type="text"
+                name="lname"
+                id="lname"
+                placeholder="Enter your last name"
+                className="w-full pl-10 pr-4 py-2 text-sm text-white bg-[#19191A] border border-gray-600 rounded-lg focus:outline-none focus:border-yellow-500 h-12"
                 value={data.lname}
                 onChange={handleInputChange}
               />
@@ -94,15 +101,17 @@ export default function RegisterCompo() {
 
           {/* Email */}
           <div>
-            <label htmlFor='email' className='block text-sm font-medium text-white'>Email</label>
-            <div className='relative mt-1'>
-              <FaEnvelope className='absolute text-orange-500 transform -translate-y-1/2 top-1/2 left-3' />
+            <label htmlFor="email" className="block text-sm font-medium text-white">
+              Email
+            </label>
+            <div className="relative mt-1">
+              <FaEnvelope className="absolute text-orange-500 transform -translate-y-1/2 top-1/2 left-3" />
               <input
-                type='email'
-                name='email'
-                id='email'
-                placeholder='Enter your email'
-                className='w-full pl-10 pr-4 py-2 text-sm text-white bg-[#19191A] border border-gray-600 rounded-lg focus:outline-none focus:border-yellow-500 h-12'
+                type="email"
+                name="email"
+                id="email"
+                placeholder="Enter your email"
+                className="w-full pl-10 pr-4 py-2 text-sm text-white bg-[#19191A] border border-gray-600 rounded-lg focus:outline-none focus:border-yellow-500 h-12"
                 value={data.email}
                 onChange={handleInputChange}
               />
@@ -111,15 +120,17 @@ export default function RegisterCompo() {
 
           {/* Phone Number */}
           <div>
-            <label htmlFor='phone_number' className='block text-sm font-medium text-white'>Phone Number</label>
-            <div className='relative mt-1'>
-              <FaPhone className='absolute text-orange-500 transform -translate-y-1/2 top-1/2 left-3' />
+            <label htmlFor="phone_number" className="block text-sm font-medium text-white">
+              Phone Number
+            </label>
+            <div className="relative mt-1">
+              <FaPhone className="absolute text-orange-500 transform -translate-y-1/2 top-1/2 left-3" />
               <input
-                type='text'
-                name='phone_number'
-                id='phone_number'
-                placeholder='Enter your phone number'
-                className='w-full pl-10 pr-4 py-2 text-sm text-white bg-[#19191A] border border-gray-600 rounded-lg focus:outline-none focus:border-yellow-500 h-12'
+                type="text"
+                name="phone_number"
+                id="phone_number"
+                placeholder="Enter your phone number"
+                className="w-full pl-10 pr-4 py-2 text-sm text-white bg-[#19191A] border border-gray-600 rounded-lg focus:outline-none focus:border-yellow-500 h-12"
                 value={data.phone_number}
                 onChange={handleInputChange}
               />
@@ -128,15 +139,17 @@ export default function RegisterCompo() {
 
           {/* Password */}
           <div>
-            <label htmlFor='password' className='block text-sm font-medium text-white'>Password</label>
-            <div className='relative mt-1'>
-              <FaLock className='absolute text-orange-500 transform -translate-y-1/2 top-1/2 left-3' />
+            <label htmlFor="password" className="block text-sm font-medium text-white">
+              Password
+            </label>
+            <div className="relative mt-1">
+              <FaLock className="absolute text-orange-500 transform -translate-y-1/2 top-1/2 left-3" />
               <input
-                type='password'
-                name='password'
-                id='password'
-                placeholder='Enter your password'
-                className='w-full pl-10 pr-4 py-2 text-sm text-white bg-[#19191A] border border-gray-600 rounded-lg focus:outline-none focus:border-yellow-500 h-12'
+                type="password"
+                name="password"
+                id="password"
+                placeholder="Enter your password"
+                className="w-full pl-10 pr-4 py-2 text-sm text-white bg-[#19191A] border border-gray-600 rounded-lg focus:outline-none focus:border-yellow-500 h-12"
                 value={data.password}
                 onChange={handleInputChange}
               />
@@ -145,15 +158,17 @@ export default function RegisterCompo() {
 
           {/* Confirm Password */}
           <div>
-            <label htmlFor='confirmPassword' className='block text-sm font-medium text-white'>Confirm Password</label>
-            <div className='relative mt-1'>
-              <FaLock className='absolute text-orange-500 transform -translate-y-1/2 top-1/2 left-3' />
+            <label htmlFor="confirmPassword" className="block text-sm font-medium text-white">
+              Confirm Password
+            </label>
+            <div className="relative mt-1">
+              <FaLock className="absolute text-orange-500 transform -translate-y-1/2 top-1/2 left-3" />
               <input
-                type='password'
-                name='confirmPassword'
-                id='confirmPassword'
-                placeholder='Confirm your password'
-                className='w-full pl-10 pr-4 py-2 text-sm text-white bg-[#19191A] border border-gray-600 rounded-lg focus:outline-none focus:border-yellow-500 h-12'
+                type="password"
+                name="confirmPassword"
+                id="confirmPassword"
+                placeholder="Confirm your password"
+                className="w-full pl-10 pr-4 py-2 text-sm text-white bg-[#19191A] border border-gray-600 rounded-lg focus:outline-none focus:border-yellow-500 h-12"
                 value={data.confirmPassword}
                 onChange={handleInputChange}
               />
@@ -162,15 +177,17 @@ export default function RegisterCompo() {
 
           {/* Address */}
           <div>
-            <label htmlFor='address' className='block text-sm font-medium text-white'>Address</label>
-            <div className='relative mt-1'>
-              <FaAddressCard className='absolute text-orange-500 transform -translate-y-1/2 top-1/2 left-3' />
+            <label htmlFor="address" className="block text-sm font-medium text-white">
+              Address
+            </label>
+            <div className="relative mt-1">
+              <FaAddressCard className="absolute text-orange-500 transform -translate-y-1/2 top-1/2 left-3" />
               <input
-                type='text'
-                name='address'
-                id='address'
-                placeholder='Enter your address'
-                className='w-full pl-10 pr-4 py-2 text-sm text-white bg-[#19191A] border border-gray-600 rounded-lg focus:outline-none focus:border-yellow-500 h-12'
+                type="text"
+                name="address"
+                id="address"
+                placeholder="Enter your address"
+                className="w-full pl-10 pr-4 py-2 text-sm text-white bg-[#19191A] border border-gray-600 rounded-lg focus:outline-none focus:border-yellow-500 h-12"
                 value={data.address}
                 onChange={handleInputChange}
               />
@@ -180,8 +197,8 @@ export default function RegisterCompo() {
           {/* Register Button */}
           <div>
             <button
-              type='submit'
-              className='flex items-center justify-center w-full h-12 px-4 py-2 space-x-2 text-sm font-medium text-white bg-orange-500 rounded-lg hover:bg-orange-600'
+              type="submit"
+              className="flex items-center justify-center w-full h-12 px-4 py-2 space-x-2 text-sm font-medium text-white bg-orange-500 rounded-lg hover:bg-orange-600"
             >
               <FaUserPlus />
               <span>Register</span>
