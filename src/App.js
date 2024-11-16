@@ -9,6 +9,7 @@ import SignPage from './pages/SignandRegPage/SignPage';
 import RegisterPage from './pages/SignandRegPage/RegisterPage';
 import LandingPage from './pages/customerPages/LandingPage';
 import ProtectedRoute from './protectedRouters/ProtectedRoute';
+import CusHeaderBar from './components/custormerCompo/CusHeaderBar';
 
 
 
@@ -28,7 +29,7 @@ function App() {
           <Route path='/register' element={<RegisterPage/>}/>
 
           <Route path='/home' element={<ProtectedRoute><LandingPage/></ProtectedRoute>}/>
-          
+          <Route path='/navbaruser' element={<ProtectedRoute><CusHeaderBar/></ProtectedRoute>}/>
           
         </Routes>
       </UserContextProvider>
