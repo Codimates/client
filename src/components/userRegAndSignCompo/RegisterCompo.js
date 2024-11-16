@@ -63,7 +63,9 @@ export default function RegisterCompo() {
         <form className="space-y-4" onSubmit={registerUser}>
           {/* First Name */}
           <div>
-            <label htmlFor="fname" className="block text-sm font-medium text-white">
+            <div className='flex justify-between '>
+              <div className='mr-1'>
+                <label htmlFor="fname" className="block text-sm font-medium text-white text-start">
               First Name
             </label>
             <div className="relative mt-1">
@@ -78,11 +80,10 @@ export default function RegisterCompo() {
                 onChange={handleInputChange}
               />
             </div>
-          </div>
-
-          {/* Last Name */}
-          <div>
-            <label htmlFor="lname" className="block text-sm font-medium text-white">
+              </div>
+              <div>
+              <div>
+            <label htmlFor="lname" className="block text-sm font-medium text-white text-start">
               Last Name
             </label>
             <div className="relative mt-1">
@@ -98,10 +99,17 @@ export default function RegisterCompo() {
               />
             </div>
           </div>
+              </div>
+            </div>
+            
+          </div>
+
+          {/* Last Name */}
+          
 
           {/* Email */}
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-white">
+            <label htmlFor="email" className="block text-sm font-medium text-white text-start">
               Email
             </label>
             <div className="relative mt-1">
@@ -120,7 +128,7 @@ export default function RegisterCompo() {
 
           {/* Phone Number */}
           <div>
-            <label htmlFor="phone_number" className="block text-sm font-medium text-white">
+            <label htmlFor="phone_number" className="block text-sm font-medium text-white text-start">
               Phone Number
             </label>
             <div className="relative mt-1">
@@ -139,7 +147,7 @@ export default function RegisterCompo() {
 
           {/* Password */}
           <div>
-            <label htmlFor="password" className="block text-sm font-medium text-white">
+            <label htmlFor="password" className="block text-sm font-medium text-white text-start">
               Password
             </label>
             <div className="relative mt-1">
@@ -158,7 +166,7 @@ export default function RegisterCompo() {
 
           {/* Confirm Password */}
           <div>
-            <label htmlFor="confirmPassword" className="block text-sm font-medium text-white">
+            <label htmlFor="confirmPassword" className="block text-sm font-medium text-white text-start">
               Confirm Password
             </label>
             <div className="relative mt-1">
@@ -177,7 +185,7 @@ export default function RegisterCompo() {
 
           {/* Address */}
           <div>
-            <label htmlFor="address" className="block text-sm font-medium text-white">
+            <label htmlFor="address" className="block text-sm font-medium text-white text-start">
               Address
             </label>
             <div className="relative mt-1">
