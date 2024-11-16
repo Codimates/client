@@ -74,7 +74,7 @@ export default function SignCompo() {
   const handleForgotPassword = () => navigate('/forgot-password');
   
   return (
-    <div className="flex items-center justify-center min-h-screen ">
+    <div className="flex items-center justify-center min-h-[800px] ">
       <div className="w-full max-w-sm p-8 space-y-6 bg-[#19191A] bg-opacity-50 rounded-lg shadow-md border border-orange-500 md:max-w-md lg:max-w-lg">
         {/* Header */}
         <h2 className="text-3xl font-semibold text-center text-white">Welcome Back</h2>

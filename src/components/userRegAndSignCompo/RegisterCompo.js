@@ -57,7 +57,7 @@ export default function RegisterCompo() {
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen">
+    <div className="flex items-center justify-center ">
       <div className="w-full max-w-lg p-8 space-y-6 bg-[#19191A] bg-opacity-50 rounded-lg shadow-md border border-orange-500">
         <h2 className="text-2xl font-semibold text-center text-white">Register</h2>
         <form className="space-y-4" onSubmit={registerUser}>
