@@ -1,6 +1,7 @@
 import React from 'react';
 import SignCompo from '../../components/userRegAndSignCompo/SignCompo';
 import BG1 from '../../images/bg1.jpg';
+import LogHeader from '../../components/userRegAndSignCompo/LogHeader';
 
 export default function SignPage() {
   return (
@@ -18,10 +19,17 @@ export default function SignPage() {
 
       {/* Content Container */}
       <div className="relative ">
-        
-          <SignCompo /> 
-        
+        {/* Logo */}
+        <div className="">
+          <LogHeader/>
+        </div>
+        <div className='mx-2 my-4'>
+           {/* Registration Component */}
+          <SignCompo/>
+        </div>
+
+       
       </div>
     </div>
   );
-}
+};

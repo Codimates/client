@@ -1,6 +1,8 @@
 import React from 'react';
 import RegisterCompo from '../../components/userRegAndSignCompo/RegisterCompo';
 import BG from '../../images/bg1.jpg';
+//import Lg from '../../images/logo.png'; // Correct import for the logo
+import LogHeader from '../../components/userRegAndSignCompo/LogHeader';
 
 const RegisterPage = () => {
   return (
@@ -18,9 +20,16 @@ const RegisterPage = () => {
 
       {/* Content Container */}
       <div className="relative ">
-        
+        {/* Logo */}
+        <div className="">
+          <LogHeader/>
+        </div>
+        <div className='mx-2 my-4'>
+           {/* Registration Component */}
           <RegisterCompo />
-        
+        </div>
+
+       
       </div>
     </div>
   );
