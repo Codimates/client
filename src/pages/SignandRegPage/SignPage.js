@@ -4,38 +4,23 @@ import BG1 from '../../images/bg1.jpg';
 
 export default function SignPage() {
   return (
-    <div
-      style={{
-        backgroundImage: `url(${BG1})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        position: 'relative',
-        height: '100vh',
-        width: '100vw',
-      }}
-    >
-      {/* Background Blur and Opacity Overlay */}
+    <div className="relative w-full min-h-screen overflow-hidden">
+      {/* Background Image */}
       <div
+        className="absolute inset-0 bg-center bg-no-repeat bg-cover"
         style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          backgroundColor: 'rgba(0, 0, 0, 0.5)', // Reduce opacity
-          backdropFilter: 'blur(10px)', // Apply blur effect
-          zIndex: 1, // Ensure it stays below the content
+          backgroundImage: `url(${BG1})`, // Correctly passing the image URL
         }}
       ></div>
 
-      {/* Content */}
-      <div
-        style={{
-          position: 'relative',
-          zIndex: 2, // Ensure content is on top of the overlay
-        }}
-      >
-        <SignCompo />
+      {/* Overlay with blur effect */}
+      <div className="absolute inset-0 bg-black/50 backdrop-blur-md"></div>
+
+      {/* Content Container */}
+      <div className="relative ">
+        
+          <SignCompo /> 
+        
       </div>
     </div>
   );
