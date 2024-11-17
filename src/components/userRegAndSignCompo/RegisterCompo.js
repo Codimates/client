@@ -59,28 +59,28 @@ export default function RegisterCompo() {
       window.alert(message);
     });
 
-    // try {
-    //   const response = await axios.post('/user/createuser', {
-    //     fname,
-    //     lname,
-    //     email,
-    //     phone_number,
-    //     password,
-    //     address,
-    //     image, // Send default image
-    //   });
+    try {
+      const response = await axios.post('/user/createuser', {
+        fname,
+        lname,
+        email,
+        phone_number,
+        password,
+        address,
+        image, // Send default image
+      });
 
-    //   const { message } = response.data;
-    //   if (response.status === 201) {
-    //     toast.success(message);
-    //     navigate('/signin'); // Redirect to login after successful registration
-    //   } else {
-    //     toast.error('Registration failed. Please try again.');
-    //   }
-    // } catch (error) {
-    //   toast.error('An error occurred. Please try again later.');
-    //   console.error('Error registering user:', error);
-    // }
+      const { message } = response.data;
+      if (response.status === 201) {
+        toast.success(message);
+        navigate('/signin'); // Redirect to login after successful registration
+      } else {
+        toast.error('Registration failed. Please try again.');
+      }
+    } catch (error) {
+      toast.error('An error occurred. Please try again later.');
+      console.error('Error registering user:', error);
+    }
   };
 
   const handleInputChange = (e) => {
