@@ -13,6 +13,7 @@ import { useNavigate } from "react-router-dom";
 import User from "../../images/user.jpg"; // Default image path
 import io from "socket.io-client";
 
+
 export default function RegisterCompo() {
   const socket = io("http://localhost:4000");
 
