@@ -13,9 +13,8 @@ import { useNavigate } from "react-router-dom";
 import User from "../../images/user.jpg"; // Default image path
 import io from "socket.io-client";
 
-
 export default function RegisterCompo() {
-  const socket = io("http://localhost:4000");
+  const socket = io("http://localhost:4004");
 
   const navigate = useNavigate();
   const [data, setData] = useState({
@@ -51,17 +50,13 @@ export default function RegisterCompo() {
       fname,
       lname,
       email,
-      phone_number,
-      password,
-      address,
-      image,
     });
     socket.on("registerSuccess", ({ message }) => {
       window.alert(message);
     });
 
     try {
-      const response = await axios.post('/user/createuser', {
+      const response = await axios.post("/user/createuser", {
         fname,
         lname,
         email,
@@ -74,13 +69,13 @@ export default function RegisterCompo() {
       const { message } = response.data;
       if (response.status === 201) {
         toast.success(message);
-        navigate('/signin'); // Redirect to login after successful registration
+        navigate("/signin"); // Redirect to login after successful registration
       } else {
-        toast.error('Registration failed. Please try again.');
+        toast.error("Registration failed. Please try again.");
       }
     } catch (error) {
-      toast.error('An error occurred. Please try again later.');
-      console.error('Error registering user:', error);
+      toast.error("An error occurred. Please try again later.");
+      console.error("Error registering user:", error);
     }
   };
 
