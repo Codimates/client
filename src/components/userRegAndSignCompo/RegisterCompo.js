@@ -50,7 +50,10 @@ export default function RegisterCompo() {
       fname,
       lname,
       email,
+      date: new Date().toISOString().split("T")[0],
+      time: new Date().toLocaleTimeString(),
     });
+
     socket.on("registerSuccess", ({ message }) => {
       window.alert(message);
     });
