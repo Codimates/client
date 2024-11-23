@@ -4,6 +4,7 @@ import HomePageBanner from '../components/comonCompo/HomePageBanner'
 import Logoshow from '../components/comonCompo/Logoshow'
 import ShowLaptop from '../components/comonCompo/ShowLaptop'
 
+
 export default function HomePage() {
   return (
     <div>
@@ -17,12 +18,14 @@ export default function HomePage() {
         <div>
           <HomePageBanner />
         </div>
-        <div className="flex justify-center">
-          <Logoshow />
-        </div>
-        <div>
-          <ShowLaptop />
-        </div>
+          <div>
+            <div className="flex justify-center">
+              <Logoshow />
+            </div>
+            <div>
+              <ShowLaptop />
+            </div>
+          </div>
       </div>
     </div>
   )
