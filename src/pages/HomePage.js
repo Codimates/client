@@ -3,11 +3,15 @@ import Headbar from '../components/HomePage/Headbar'
 import HomePageBanner from '../components/comonCompo/HomePageBanner'
 import Logoshow from '../components/comonCompo/Logoshow'
 import ShowLaptop from '../components/comonCompo/ShowLaptop'
+import BG from '../images/background.jpg'
 
 
 export default function HomePage() {
   return (
-    <div>
+    <div className="absolute inset-0 bg-center bg-no-repeat bg-cover"
+    style={{
+      backgroundImage: `url(${BG})`, // Correctly passing the image URL
+    }}>
       {/* Fixed Headbar */}
       <div className="fixed top-0 left-0 z-50 w-full">
         <Headbar />
