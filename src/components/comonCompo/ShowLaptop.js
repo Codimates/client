@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { IoCloseCircle } from "react-icons/io5";
+import { IoIosClose } from "react-icons/io";
 
 export default function ShowLaptop() {
   const [Laptop, setLaptop] = useState([]);
@@ -81,12 +81,15 @@ export default function ShowLaptop() {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
           <div className="relative w-[90%] max-w-4xl p-6 bg-white rounded-lg">
             {/* Close Button */}
-            <button
-              className="absolute text-2xl text-gray-900 hover:text-red-600 top-4 right-4"
-              onClick={() => setSelectedLaptop(null)}
-            >
-              <IoCloseCircle/>
-            </button>
+            <div className="flex justify-end ">
+                <button
+                className="text-2xl text-gray-900 hover:text-red-600 top-4 right-4"
+                onClick={() => setSelectedLaptop(null)}
+                >
+                    <IoIosClose className="size-8"/>
+                </button>
+            </div>
+            
 
             {/* Slideshow */}
             <div className="relative">
