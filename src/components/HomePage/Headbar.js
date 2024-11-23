@@ -14,7 +14,7 @@ export default function Headbar() {
   const handleSignInClick = () => navigate('/signin');
 
   return (
-    <div className='bg-[#1A1A1D] shadow-md'>
+    <div className='bg-[#1A1A1D] shadow-md '>
       <div className='flex items-center justify-between px-6 py-3 md:px-10'>
 
         {/* Logo */}
