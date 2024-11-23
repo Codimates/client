@@ -5,7 +5,6 @@ import { IoIosClose } from "react-icons/io";
 export default function ShowLaptop() {
   const [Laptop, setLaptop] = useState([]);
   const [selectedLaptop, setSelectedLaptop] = useState(null);
-  const [currentSlide, setCurrentSlide] = useState(0);
 
   // Fetch laptops from the API
   const getLaptop = async () => {
@@ -21,16 +20,6 @@ export default function ShowLaptop() {
     getLaptop();
   }, []);
 
-  // Handle "Next" button click
-  const handleNextSlide = (imagesLength) => {
-    setCurrentSlide((prev) => (prev + 1) % imagesLength);
-  };
-
-  // Handle "Previous" button click
-  const handlePreviousSlide = (imagesLength) => {
-    setCurrentSlide((prev) => (prev - 1 + imagesLength) % imagesLength);
-  };
-
   return (
     <div>
       <div className="flex flex-wrap justify-center gap-4">
@@ -41,10 +30,10 @@ export default function ShowLaptop() {
               className="p-4 mb-4 border rounded-lg"
             >
               <div className="flex flex-col items-center">
-                {/* Display first image */}
-                {inventory.images?.[0] && (
+                {/* Display S3 image */}
+                {inventory.images && (
                   <img
-                    src={inventory.images[0]}
+                    src={inventory.images}
                     alt={inventory.brand_name}
                     className="object-contain w-[400px] h-[500px] mb-2 border-2 border-orange-500 rounded-lg"
                   />
@@ -59,15 +48,11 @@ export default function ShowLaptop() {
                   {/* View Button */}
                   <button
                     className="px-4 py-2 text-white bg-orange-500 rounded-md hover:bg-orange-600"
-                    onClick={() => {
-                      setSelectedLaptop(inventory);
-                      setCurrentSlide(0);
-                    }}
+                    onClick={() => setSelectedLaptop(inventory)}
                   >
                     View
                   </button>
                 </div>
-                
               </div>
             </div>
           ))
@@ -76,49 +61,29 @@ export default function ShowLaptop() {
         )}
       </div>
 
-      {/* Modal for Slideshow */}
+      {/* Modal for Details */}
       {selectedLaptop && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
           <div className="relative w-[90%] max-w-4xl p-6 bg-white rounded-lg">
             {/* Close Button */}
-            <div className="flex justify-end ">
-                <button
+            <div className="flex justify-end">
+              <button
                 className="text-2xl text-gray-900 hover:text-red-600 top-4 right-4"
                 onClick={() => setSelectedLaptop(null)}
-                >
-                    <IoIosClose className="size-8"/>
-                </button>
+              >
+                <IoIosClose className="size-8"/>
+              </button>
             </div>
-            
 
-            {/* Slideshow */}
+            {/* Single Image Display */}
             <div className="relative">
-              {/* Single Image Display */}
-              {selectedLaptop.images?.[currentSlide] && (
+              {selectedLaptop.images && (
                 <img
-                  src={selectedLaptop.images[currentSlide]}
-                  alt={`${selectedLaptop.brand_name} Slide ${
-                    currentSlide + 1
-                  }`}
+                  src={selectedLaptop.images}
+                  alt={selectedLaptop.brand_name}
                   className="object-contain w-full h-[500px] rounded-lg"
                 />
               )}
-
-              {/* Navigation Buttons */}
-              <button
-                onClick={() =>
-                  handlePreviousSlide(selectedLaptop.images.length)
-                }
-                className="absolute p-2 text-white -translate-y-1/2 bg-gray-700 rounded-full left-2 top-1/2 hover:bg-gray-900"
-              >
-                &lt;
-              </button>
-              <button
-                onClick={() => handleNextSlide(selectedLaptop.images.length)}
-                className="absolute p-2 text-white -translate-y-1/2 bg-gray-700 rounded-full right-2 top-1/2 hover:bg-gray-900"
-              >
-                &gt;
-              </button>
             </div>
 
             {/* Laptop Details */}
