@@ -20,8 +20,11 @@ export default function Logoshow() {
   }, []);
 
   return (
-    <div className="p-4">
+    <div className="pb-4 mt-[-70px]">
       <div className="overflow-x-auto whitespace-nowrap">
+        <div>
+          <h2 className="text-2xl font-semibold text-gray-800">Brands</h2>
+        </div>
         <div className="flex items-center gap-6">
           {approvedBrands.length > 0 ? (
             approvedBrands.map((brand) => (
