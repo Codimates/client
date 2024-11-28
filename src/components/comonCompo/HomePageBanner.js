@@ -41,7 +41,7 @@ const HomePageBanner = () => {
             <div
               key={index}
               className={`w-3 h-3 rounded-full cursor-pointer ${
-                currentIndex === index ? 'bg-blue-500' : 'bg-gray-300'
+                currentIndex === index ? 'bg-orange-500' : 'bg-gray-300'
               }`}
               onClick={() => setCurrentIndex(index)}
             />
