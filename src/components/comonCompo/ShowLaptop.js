@@ -34,6 +34,14 @@ export default function ShowLaptop() {
 
   return (
     <div>
+      <div className="flex justify-right">
+        
+        <div>
+          <input className="" placeholder="Enter Brand name, Model name ....."></input>
+          <button className="bg-[#19191A] text-white">Search</button>
+        </div>
+        
+      </div>
       <div className="flex flex-wrap justify-center gap-4">
         {Laptop.length > 0 ? (
           Laptop.map((inventory) => (
