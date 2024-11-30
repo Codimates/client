@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { IoIosClose } from "react-icons/io";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
+import HomePageBanner from "./HomePageBanner";
 
 export default function ShowLaptop() {
   const [Laptop, setLaptop] = useState([]);
@@ -35,7 +36,9 @@ export default function ShowLaptop() {
   return (
     <div>
       <div className="flex justify-right">
-        
+        <div>
+          <HomePageBanner/>
+        </div>
         <div>
           <input className="" placeholder="Enter Brand name, Model name ....."></input>
           <button className="bg-[#19191A] text-white">Search</button>
