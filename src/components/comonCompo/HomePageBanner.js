@@ -21,27 +21,29 @@ const HomePageBanner = () => {
   }, [banners.length]);
 
   return (
-    <div className="relative w-full px-2 mx-auto max-w-screen-2xl sm:px-4">
-      <div className="relative w-full min-h-[300px] sm:min-h-[400px] md:min-h-[500px] lg:min-h-[600px] xl:min-h-[700px] overflow-hidden">
+    <div className="relative w-full max-w-screen-xl px-2 mx-auto sm:px-4">
+      <div className="relative">
         <div
-          className={`flex items-center justify-center h-full py-4 sm:py-6 transition-all duration-1000 ease-in-out ${
+          className={`flex items-center justify-center h-[250px] sm:h-[400px] md:h-[500px] py-2 sm:py-4 transition-all duration-1000 ease-in-out ${
             isTransitioning ? "opacity-0 scale-95" : "opacity-100 scale-100"
           }`}
         >
           <img
             src={banners[currentIndex]}
             alt={`Banner ${currentIndex + 1}`}
-            className="object-contain w-auto h-auto max-w-full max-h-full rounded-lg"
+            className="object-contain w-full h-full max-h-full rounded-lg"
           />
         </div>
 
         {/* Dots Indicators */}
-        <div className="absolute z-10 flex px-4 space-x-2 transform -translate-x-1/2 bg-opacity-50 rounded-lg py-[80px] bottom-8 left-1/2 ">
+        <div className="absolute z-10 flex space-x-2 transform -translate-x-1/2 bottom-4 left-1/2">
           {banners.map((_, index) => (
             <div
               key={index}
-              className={`w-3 h-3 rounded-full cursor-pointer border-2 ${
-                currentIndex === index ? "bg-orange-500 border-orange-500" : "bg-gray-300 border-gray-300"
+              className={`w-3 h-3 rounded-full cursor-pointer transition-all duration-300 border-2 ${
+                currentIndex === index
+                  ? "bg-orange-500 border-orange-500 scale-110"
+                  : "bg-gray-300 border-gray-300"
               }`}
               onClick={() => setCurrentIndex(index)}
             />

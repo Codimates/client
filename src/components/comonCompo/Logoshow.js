@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import HomePageBanner from "./HomePageBanner";
 
 export default function Logoshow() {
   const [approvedBrands, setApprovedBrands] = useState([]);
@@ -26,6 +27,9 @@ export default function Logoshow() {
     <div className="pb-6 mt-[-70px] border  w-screen">
       <div className="mb-6 text-center">
         <h2 className="text-3xl font-semibold text-gray-950">Explore Popular Brands</h2>
+      </div>
+      <div>
+        <HomePageBanner/>
       </div>
       <div className="flex items-center justify-center gap-6 px-4 py-4 overflow-x-auto  bg-[#19191a] bg-opacity-25">
         {loading ? (
