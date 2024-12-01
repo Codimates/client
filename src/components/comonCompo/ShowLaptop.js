@@ -16,9 +16,6 @@ export default function ShowLaptop() {
 
   const scrollContainerRef = useRef(null);
 
-  
-
-
   // Fetch laptops from the API
   const getLaptops = async () => {
     try {
@@ -51,7 +48,6 @@ export default function ShowLaptop() {
   // Handle brand selection
   const handleBrandSelect = (brand) => {
     setSelectedBrand(brand);
-    setSelectedBrand(brand);
     const filtered = brand 
       ? laptops.filter(laptop => laptop.brand_name.toLowerCase() === brand.brandname.toLowerCase())
       : laptops;
@@ -81,7 +77,6 @@ export default function ShowLaptop() {
   return (
     <div>
       <div>
-        
         <div className="pt-[-200px]">
           <HomePageBanner/>
         </div>
@@ -90,70 +85,66 @@ export default function ShowLaptop() {
           <h2 className="text-3xl font-bold text-orange-500">Explore Popular Brands</h2>
         </div>
         <div className="relative py-6 bg-[#19191A] bg-opacity-25">
-      <div className="flex justify-center px-4 md:px-0">
-        
-
-        <div
-          ref={scrollContainerRef}
-          className="flex items-center gap-6 px-4 py-4 overflow-x-auto md:overflow-hidden scrollbar-hide"
-        >
-          {loading ? (
-            <div className="flex justify-center w-full">
-              <div className="w-5 h-5 border-4 border-orange-500 border-dashed rounded-full animate-spin"></div>
-            </div>
-          ) : (
-            <>
-              {/* "All Brands" Option */}
-              <div
-                key="all-brands"
-                className={`relative  flex-shrink-0 h-[70px] w-[70px] transition-transform duration-200 rounded-full hover:scale-110 ${
-                  selectedBrand === null ? "border-4 border-orange-500" : ""
-                }`}
-                onClick={() => handleBrandSelect(null)}
-              >
-                <div className="flex items-center justify-center w-full h-full bg-[#19191A] border-2 border-gray-300 rounded-full">
-                  <span className="text-sm font-semibold text-[#747474]">-All-</span>
+          <div className="flex justify-center px-4 md:px-0">
+            <div
+              ref={scrollContainerRef}
+              className="flex items-center gap-6 px-4 py-4 overflow-x-auto md:overflow-hidden scrollbar-hide"
+            >
+              {loading ? (
+                <div className="flex justify-center w-full">
+                  <div className="w-5 h-5 border-4 border-orange-500 border-dashed rounded-full animate-spin"></div>
                 </div>
-              </div>
-
-              {/* Brand Logos */}
-              {approvedBrands.length > 0 ? (
-                approvedBrands.map((brand) => (
+              ) : (
+                <>
+                  {/* "All Brands" Option */}
                   <div
-                    key={brand._id}
-                    className={`relative flex-shrink-0 h-[70px] w-[70px] transition-transform duration-200 rounded-full hover:scale-110 ${
-                      selectedBrand && selectedBrand.brandname === brand.brandname
-                        ? "border-4 border-orange-500"
-                        : ""
+                    key="all-brands"
+                    className={`relative  flex-shrink-0 h-[70px] w-[70px] transition-transform duration-200 rounded-full hover:scale-110 ${
+                      selectedBrand === null ? "border-4 border-orange-500" : ""
                     }`}
-                    onClick={() => handleBrandSelect(brand)}
+                    onClick={() => handleBrandSelect(null)}
                   >
-                    {brand.brandlogo ? (
-                      <img
-                        src={brand.brandlogo}
-                        alt={brand.brandname}
-                        className="object-cover w-full h-full border-2 border-gray-300 rounded-full"
-                      />
-                    ) : (
-                      <div className="flex items-center justify-center w-full h-full bg-gray-300 border-2 border-orange-500 rounded-full">
-                        <span className="text-xs text-gray-500">No Logo</span>
-                      </div>
-                    )}
-                    <div className="absolute inset-0 flex items-center justify-center text-sm font-semibold text-white bg-[#19191A] rounded-full opacity-0 bg-opacity-80 hover:opacity-100">
-                      {brand.brandname}
+                    <div className="flex items-center justify-center w-full h-full bg-[#19191A] border-2 border-gray-300 rounded-full">
+                      <span className="text-sm font-semibold text-[#747474]">-All-</span>
                     </div>
                   </div>
-                ))
-              ) : (
-                <h3 className="text-gray-500">No brands available</h3>
-              )}
-            </>
-          )}
-        </div>
 
-        
-      </div>
-    </div>
+                  {/* Brand Logos */}
+                  {approvedBrands.length > 0 ? (
+                    approvedBrands.map((brand) => (
+                      <div
+                        key={brand._id}
+                        className={`relative flex-shrink-0 h-[70px] w-[70px] transition-transform duration-200 rounded-full hover:scale-110 ${
+                          selectedBrand && selectedBrand.brandname === brand.brandname
+                            ? "border-4 border-orange-500"
+                            : ""
+                        }`}
+                        onClick={() => handleBrandSelect(brand)}
+                      >
+                        {brand.brandlogo ? (
+                          <img
+                            src={brand.brandlogo}
+                            alt={brand.brandname}
+                            className="object-cover w-full h-full border-2 border-gray-300 rounded-full"
+                          />
+                        ) : (
+                          <div className="flex items-center justify-center w-full h-full bg-gray-300 border-2 border-orange-500 rounded-full">
+                            <span className="text-xs text-gray-500">No Logo</span>
+                          </div>
+                        )}
+                        <div className="absolute inset-0 flex items-center justify-center text-sm font-semibold text-white bg-[#19191A] rounded-full opacity-0 bg-opacity-80 hover:opacity-100">
+                          {brand.brandname}
+                        </div>
+                      </div>
+                    ))
+                  ) : (
+                    <h3 className="text-gray-500">No brands available</h3>
+                  )}
+                </>
+              )}
+            </div>
+          </div>
+        </div>
         
         {/* Search Section */}
         <div className="flex justify-center my-4">
@@ -214,53 +205,56 @@ export default function ShowLaptop() {
         )}
       </div>
 
-      {/* Modal for Slideshow (Unchanged from previous code) */}
+      {/* Modal for Slideshow with Responsive Layout */}
       {selectedLaptop && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="relative w-[90%] max-w-4xl p-6 bg-white rounded-lg">
-            {/* Close Button */}
-            <div className="flex justify-end">
-              <button
-                className="text-2xl text-gray-900 hover:text-red-600 top-4 right-4"
-                onClick={() => setSelectedLaptop(null)}
-              >
-                <IoIosClose className="size-8"/>
-              </button>
-            </div>
+  <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
+    <div className="relative w-[90%] max-w-6xl p-6 bg-white rounded-lg">
+      {/* Close Button */}
+      <div className="flex justify-end">
+        <button
+          className="text-2xl text-gray-900 hover:text-red-600"
+          onClick={() => setSelectedLaptop(null)}
+        >
+          <IoIosClose className="size-8" />
+        </button>
+      </div>
 
-            {/* Slideshow */}
-            <div className="relative">
-              {selectedLaptop.images?.[currentSlide] && (
+      {/* Laptop Details Container */}
+      <div className="mt-4">
+        <div className="flex flex-col items-center gap-6 md:flex-row">
+          {/* Image Section */}
+          <div className="relative w-full md:w-1/2">
+            {selectedLaptop.images?.[currentSlide] && (
+              <>
+                {/* Navigation Buttons - Repositioned */}
+                {selectedLaptop.images?.length > 1 && (
+                  <>
+                    <button
+                      onClick={() => handlePreviousSlide(selectedLaptop.images.length)}
+                      className="absolute z-10 p-2 text-white bg-gray-700 rounded-full left-4 bottom-4 hover:bg-gray-900 bg-opacity-40"
+                    >
+                      <IoIosArrowBack className="size-6" />
+                    </button>
+                    <button
+                      onClick={() => handleNextSlide(selectedLaptop.images.length)}
+                      className="absolute z-10 p-2 text-white bg-gray-700 rounded-full right-4 bottom-4 hover:bg-gray-900 bg-opacity-40"
+                    >
+                      <IoIosArrowForward className="size-6" />
+                    </button>
+                  </>
+                )}
                 <img
                   src={selectedLaptop.images[currentSlide]}
                   alt={`${selectedLaptop.brand_name} Slide ${currentSlide + 1}`}
-                  className="object-contain w-full h-[500px] rounded-lg"
+                  className="object-contain w-full h-[300px] md:h-[400px] rounded-lg"
                 />
-              )}
-
-              {/* Navigation Buttons - Only show if there are multiple images */}
-              {selectedLaptop.images?.length > 1 && (
-                <>
-                  <button
-                    onClick={() => handlePreviousSlide(selectedLaptop.images.length)}
-                    className="absolute p-2 text-white -translate-y-1/2 bg-gray-700 rounded-full left-2 top-1/2 hover:bg-gray-900"
-                  >
-                    <IoIosArrowBack className="size-6" />
-                  </button>
-                  <button
-                    onClick={() => handleNextSlide(selectedLaptop.images.length)}
-                    className="absolute p-2 text-white -translate-y-1/2 bg-gray-700 rounded-full right-2 top-1/2 hover:bg-gray-900"
-                  >
-                    <IoIosArrowForward className="size-6" />
-                  </button>
-                </>
-              )}
-            </div>
+              </>
+            )}
 
             {/* Image Counter */}
             {selectedLaptop.images?.length > 1 && (
-              <div className="mt-2 text-center">
-                <div className="flex items-center justify-center gap-2 mt-2">
+              <div className="absolute -translate-x-1/2 bottom-2 left-1/2">
+                <div className="flex items-center gap-2">
                   {selectedLaptop.images.map((_, index) => (
                     <button
                       key={index}
@@ -273,25 +267,36 @@ export default function ShowLaptop() {
                 </div>
               </div>
             )}
+          </div>
 
-            {/* Laptop Details */}
-            <div className="mt-4 text-center">
-              <h2 className="text-2xl font-semibold text-orange-500">
-                {selectedLaptop.brand_name}
+          {/* Details Section */}
+          <div className="w-full text-center md:w-1/2 md:text-left">
+            <div className="mb-4">
+              <h2 className="text-2xl font-semibold">
+                <span className="mr-2 text-orange-500">{selectedLaptop.brand_name}</span>
+                {selectedLaptop.model_name}
               </h2>
-              <p>{selectedLaptop.model_name}</p>
-              <p className="font-medium text-green-600">
+            </div>
+
+            <div className="space-y-2">
+              <p className="text-xl font-medium text-green-600">
                 Price: ${selectedLaptop.price}
               </p>
-              <p>RAM: {selectedLaptop.ram}</p>
-              <p>Processor: {selectedLaptop.processor}</p>
-              <p>
-                Graphics Card: {selectedLaptop.graphics_card || "Not Available"}
-              </p>
+              <div className="text-gray-700">
+                <p><strong>RAM:</strong> {selectedLaptop.ram}</p>
+                <p><strong>Processor:</strong> {selectedLaptop.processor}</p>
+                <p>
+                  <strong>Graphics Card:</strong> {selectedLaptop.graphics_card || "Not Available"}
+                </p>
+              </div>
             </div>
           </div>
         </div>
-      )}
+      </div>
+    </div>
+  </div>
+)}
+
     </div>
   );
 }
