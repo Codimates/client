@@ -22,7 +22,7 @@ export default function ShowLaptop() {
   // Fetch laptops from the API
   const getLaptops = async () => {
     try {
-      const response = await axios.get("/inventory/getalllaps");
+      const response = await axios.get("/inventory/getaddsiteistrue");
       setLaptops(response.data);
       setFilteredLaptops(response.data);
     } catch (error) {
