@@ -3,6 +3,7 @@ import axios from "axios";
 import { IoIosClose } from "react-icons/io";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import HomePageBanner from "./HomePageBanner";
+import { FaCartPlus } from "react-icons/fa";
 
 export default function ShowLaptop() {
   const [laptops, setLaptops] = useState([]);
@@ -218,6 +219,12 @@ export default function ShowLaptop() {
           <IoIosClose className="size-8" />
         </button>
       </div>
+      <div>
+      <h2 className="text-2xl font-semibold">
+                <span className="mr-2 text-orange-500">{selectedLaptop.brand_name}</span>
+                {selectedLaptop.model_name}
+              </h2>
+      </div>
 
       {/* Laptop Details Container */}
       <div className="mt-4">
@@ -272,8 +279,11 @@ export default function ShowLaptop() {
           {/* Details Section */}
           <div className="w-full text-center md:w-1/2 md:text-left">
             <div className="mb-4">
-              <h2 className="text-2xl font-semibold">
-                <span className="mr-2 text-orange-500">{selectedLaptop.brand_name}</span>
+              <h2 className="text-xl font-semibold">
+                <span className="mr-2 text-orange-500">Brand :</span>{selectedLaptop.brand_name}
+              </h2>
+              <h2>
+                <span className="mr-2 font-semibold text-orange-500">Model :</span>
                 {selectedLaptop.model_name}
               </h2>
             </div>
@@ -289,6 +299,9 @@ export default function ShowLaptop() {
                   <strong>Graphics Card:</strong> {selectedLaptop.graphics_card || "Not Available"}
                 </p>
                 <p><strong>Special Offer:</strong>{selectedLaptop.special_offer}</p>
+              </div>
+              <div className="pt-2">
+                <button className="w-[150px] h-10 bg-orange-500 text-white rounded-lg"> <span className="flex items-center justify-between mx-6"> <FaCartPlus /> Add to cart</span></button>
               </div>
             </div>
           </div>
