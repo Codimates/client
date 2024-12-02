@@ -288,6 +288,7 @@ export default function ShowLaptop() {
                 <p>
                   <strong>Graphics Card:</strong> {selectedLaptop.graphics_card || "Not Available"}
                 </p>
+                <p><strong>Special Offer:</strong>{selectedLaptop.special_offer}</p>
               </div>
             </div>
           </div>
