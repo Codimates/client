@@ -208,7 +208,7 @@ export default function ShowLaptop() {
       {/* Modal for Slideshow with Responsive Layout */}
       {selectedLaptop && (
   <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-    <div className="relative w-[90%] max-w-6xl p-6 bg-white rounded-lg">
+    <div className="relative w-[80%] max-w-6xl p-6 bg-white rounded-lg sm:w-[70%] lg:w-[50%]">
       {/* Close Button */}
       <div className="flex justify-end">
         <button
@@ -233,20 +233,20 @@ export default function ShowLaptop() {
                       onClick={() => handlePreviousSlide(selectedLaptop.images.length)}
                       className="absolute z-10 p-2 text-white bg-gray-700 rounded-full left-4 bottom-4 hover:bg-gray-900 bg-opacity-40"
                     >
-                      <IoIosArrowBack className="size-6" />
+                      <IoIosArrowBack className="size-5" />
                     </button>
                     <button
                       onClick={() => handleNextSlide(selectedLaptop.images.length)}
                       className="absolute z-10 p-2 text-white bg-gray-700 rounded-full right-4 bottom-4 hover:bg-gray-900 bg-opacity-40"
                     >
-                      <IoIosArrowForward className="size-6" />
+                      <IoIosArrowForward className="size-5" />
                     </button>
                   </>
                 )}
                 <img
                   src={selectedLaptop.images[currentSlide]}
                   alt={`${selectedLaptop.brand_name} Slide ${currentSlide + 1}`}
-                  className="object-contain w-full h-[300px] md:h-[400px] rounded-lg"
+                  className="object-contain w-full h-[300px] md:h-[400px] rounded-lg border border-orange-500"
                 />
               </>
             )}
