@@ -3,6 +3,7 @@ import axios from "axios";
 import { IoIosClose } from "react-icons/io";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import HomePageBanner from "./HomePageBanner";
+import { FaCartPlus } from "react-icons/fa";
 
 export default function ShowLaptop() {
   const [laptops, setLaptops] = useState([]);
@@ -208,7 +209,7 @@ export default function ShowLaptop() {
       {/* Modal for Slideshow with Responsive Layout */}
       {selectedLaptop && (
   <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50">
-    <div className="relative w-[90%] max-w-6xl p-6 bg-white rounded-lg">
+    <div className="relative w-[80%] max-w-6xl p-6 bg-white rounded-lg sm:w-[70%] lg:w-[50%]">
       {/* Close Button */}
       <div className="flex justify-end">
         <button
@@ -217,6 +218,12 @@ export default function ShowLaptop() {
         >
           <IoIosClose className="size-8" />
         </button>
+      </div>
+      <div>
+      <h2 className="text-2xl font-semibold">
+                <span className="mr-2 text-orange-500">{selectedLaptop.brand_name}</span>
+                {selectedLaptop.model_name}
+              </h2>
       </div>
 
       {/* Laptop Details Container */}
@@ -233,20 +240,20 @@ export default function ShowLaptop() {
                       onClick={() => handlePreviousSlide(selectedLaptop.images.length)}
                       className="absolute z-10 p-2 text-white bg-gray-700 rounded-full left-4 bottom-4 hover:bg-gray-900 bg-opacity-40"
                     >
-                      <IoIosArrowBack className="size-6" />
+                      <IoIosArrowBack className="size-5" />
                     </button>
                     <button
                       onClick={() => handleNextSlide(selectedLaptop.images.length)}
                       className="absolute z-10 p-2 text-white bg-gray-700 rounded-full right-4 bottom-4 hover:bg-gray-900 bg-opacity-40"
                     >
-                      <IoIosArrowForward className="size-6" />
+                      <IoIosArrowForward className="size-5" />
                     </button>
                   </>
                 )}
                 <img
                   src={selectedLaptop.images[currentSlide]}
                   alt={`${selectedLaptop.brand_name} Slide ${currentSlide + 1}`}
-                  className="object-contain w-full h-[300px] md:h-[400px] rounded-lg"
+                  className="object-contain w-full h-[300px] md:h-[400px] rounded-lg border border-orange-500"
                 />
               </>
             )}
@@ -272,8 +279,11 @@ export default function ShowLaptop() {
           {/* Details Section */}
           <div className="w-full text-center md:w-1/2 md:text-left">
             <div className="mb-4">
-              <h2 className="text-2xl font-semibold">
-                <span className="mr-2 text-orange-500">{selectedLaptop.brand_name}</span>
+              <h2 className="text-xl font-semibold">
+                <span className="mr-2 text-orange-500">Brand :</span>{selectedLaptop.brand_name}
+              </h2>
+              <h2>
+                <span className="mr-2 font-semibold text-orange-500">Model :</span>
                 {selectedLaptop.model_name}
               </h2>
             </div>
@@ -288,6 +298,10 @@ export default function ShowLaptop() {
                 <p>
                   <strong>Graphics Card:</strong> {selectedLaptop.graphics_card || "Not Available"}
                 </p>
+                <p><strong>Special Offer:</strong>{selectedLaptop.special_offer}</p>
+              </div>
+              <div className="pt-2">
+                <button className="w-[150px] h-10 bg-orange-500 text-white rounded-lg"> <span className="flex items-center justify-between mx-6"> <FaCartPlus /> Add to cart</span></button>
               </div>
             </div>
           </div>
