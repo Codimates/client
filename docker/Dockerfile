@@ -1,8 +1,9 @@
-FROM node:18-alpine AS build
+FROM node:18
 
 WORKDIR /app
 
-COPY package.json package-lock.json ./
+# COPY package.json package-lock.json ./
+COPY package*.json ./
 
 RUN npm install
 RUN npm i socket.io-client
@@ -11,12 +12,8 @@ COPY . .
 
 RUN npm run build
 
-FROM nginx:alpine
+RUN npm install -g serve
 
-# COPY nginx.conf /etc/nginx/nginx.conf
+EXPOSE 3000
 
-COPY --from=build /app/build /usr/share/nginx/html
-
-EXPOSE 80
-
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["serve", "-s", "build", "-l", "3000"]

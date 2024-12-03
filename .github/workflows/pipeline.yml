@@ -1,4 +1,4 @@
-name: client frontend
+name: client
 
 on:
   push:
