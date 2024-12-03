@@ -10,9 +10,7 @@ const Cart = () => {
   const storedUser = localStorage.getItem("user")
   
   const userInfo = JSON.parse(storedUser)
-    const userId = userInfo._id;
-    console.log(userInfo._id);
-  
+    const userId = userInfo._id;  
 
   return (
     <div>

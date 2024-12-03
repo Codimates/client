@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { StoreContext } from '../context/StoreContext.js';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import Headbar from '../components/HomePage/Headbar.js';
 
 const PlaceOrder = () => {
   const storedUser = localStorage.getItem('user');
@@ -27,20 +28,21 @@ const PlaceOrder = () => {
 
   const placeOrder = async (event) => {
     event.preventDefault();
-    let OrderData = {
+    let orderData = {
       userId: userId,
       address: data,
       items: cartItems,
       amount: getTotalCartAmount() + 2,
     };
-    let response = await axios.post(url + '/api/order/place', OrderData);
+    let response = await axios.post(url + '/api/order/place', orderData);
     if (response.data.success) {
       const { session_url } = response.data;
       window.location.replace(session_url);
     } else {
       alert('Error');
-      console.log(response.data);
     }
+    
+    
   };
 
   const navigate = useNavigate();
@@ -51,10 +53,13 @@ const PlaceOrder = () => {
     } else if (getTotalCartAmount() === 0) {
       navigate('/cart');
     }
-  }, [userId, getTotalCartAmount, navigate]);
+  }, [userId]);
 
   return (
-    <form className="flex flex-col sm:flex-row sm:items-start sm:justify-between sm:gap-12 mt-16" onSubmit={placeOrder}>
+    <div>
+        <Headbar/>
+    <form className="flex flex-col sm:flex-row sm:items-start sm:justify-between sm:gap-12 mt-16 mx-[20px]" onSubmit={placeOrder}>
+        
       {/* Left Section */}
       <div className="w-full max-w-[min(100%,500px)]">
         <p className="text-2xl font-semibold mb-12">Delivery Details</p>
@@ -154,6 +159,7 @@ const PlaceOrder = () => {
         </div>
       </div>
     </form>
+    </div>
   );
 };
 
