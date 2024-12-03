@@ -4,6 +4,8 @@ import { IoIosClose } from "react-icons/io";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import HomePageBanner from "./HomePageBanner";
 import { FaCartPlus } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie"; // Assuming you are using the js-cookie library
 
 export default function ShowLaptop() {
   const [laptops, setLaptops] = useState([]);
@@ -16,6 +18,18 @@ export default function ShowLaptop() {
   const [selectedBrand, setSelectedBrand] = useState(null);
 
   const scrollContainerRef = useRef(null);
+
+  const navigate = useNavigate();
+
+  // Function to handle the Add to Cart button
+  const handleAddToCart = () => {
+    const isLoggedIn = Cookies.get("token"); // Assuming 'token' is the cookie key storing the login state
+    if (isLoggedIn) {
+      navigate("/cart");
+    } else {
+      navigate("/signin");
+    }
+  };
 
   // Fetch laptops from the API
   const getLaptops = async () => {
@@ -301,7 +315,14 @@ export default function ShowLaptop() {
                 <p><strong>Special Offer:</strong>{selectedLaptop.special_offer}</p>
               </div>
               <div className="pt-2">
-                <button className="w-[150px] h-10 bg-orange-500 text-white rounded-lg"> <span className="flex items-center justify-between mx-6"> <FaCartPlus /> Add to cart</span></button>
+              <button
+          className="w-[150px] h-10 bg-orange-500 text-white rounded-lg"
+          onClick={handleAddToCart}
+        >
+          <span className="flex items-center justify-between mx-6">
+            <FaCartPlus /> Add to cart
+          </span>
+        </button>
               </div>
             </div>
           </div>
