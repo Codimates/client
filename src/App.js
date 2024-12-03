@@ -12,6 +12,8 @@ import ProtectedRoute from './protectedRouters/ProtectedRoute';
 import CusHeaderBar from './components/custormerCompo/CusHeaderBar';
 import Cart from './pages/Cart';
 import MyOrders from './pages/MyOrders';
+import Verify from './pages/Verify';
+import PlaceOrder from './pages/PlaceOrder';
 
 
 
@@ -35,6 +37,8 @@ function App() {
 
           <Route path='/cart' element={<Cart/>} />
           <Route path='/myorders' element={<MyOrders/>} />
+          <Route path="/verify" element={<Verify />} />
+          <Route path='/placeorder' element={<PlaceOrder/>} />
           
 
           
