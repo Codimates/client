@@ -2,6 +2,7 @@ import React, { useContext, useState } from 'react';
 import { FaGripLines, FaCartPlus, FaCog, FaSignOutAlt } from 'react-icons/fa';
 import { UserContext } from '../../context/UserContext';
 import Logo from '../../images/logo.png';
+import { useNavigate } from 'react-router-dom';
 
 const CusHeaderBar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -9,6 +10,7 @@ const CusHeaderBar = () => {
   const [isMobileDropdownOpen, setIsMobileDropdownOpen] = useState(false);
 
   const { user, loading, logout } = useContext(UserContext);
+  const navigate = useNavigate();
 
   const toggleDropdown = () => setIsDropdownOpen((prev) => !prev);
   const toggleDropdownmobile = () => setIsDropdownmobileOpen((prev) => !prev);
@@ -69,7 +71,10 @@ const CusHeaderBar = () => {
           </div>
 
           {/* Cart Button */}
-          <button className="flex items-center justify-center h-12 px-4 py-2 text-center text-white transition-colors duration-300 bg-orange-500 rounded hover:text-gray-300 hover:bg-orange-700">
+          <button className="flex items-center justify-center h-12 px-4 py-2 text-center text-white transition-colors duration-300 bg-orange-500 rounded hover:text-gray-300 hover:bg-orange-700"
+             onClick={() => {
+              navigate('/cart');
+            }} >
             <FaCartPlus size={30} />
             <span className="pl-2">Add Cart</span>
           </button>

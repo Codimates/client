@@ -10,6 +10,10 @@ import RegisterPage from './pages/SignandRegPage/RegisterPage';
 import LandingPage from './pages/customerPages/LandingPage';
 import ProtectedRoute from './protectedRouters/ProtectedRoute';
 import CusHeaderBar from './components/custormerCompo/CusHeaderBar';
+import Cart from './pages/Cart';
+import PlaceOrder from './pages/PlaceOrder';
+import Verify from './pages/Verify';
+import MyOrders from './pages/MyOrders';
 
 
 
@@ -30,6 +34,11 @@ function App() {
 
           <Route path='/home' element={<ProtectedRoute><LandingPage/></ProtectedRoute>}/>
           <Route path='/navbaruser' element={<ProtectedRoute><CusHeaderBar/></ProtectedRoute>}/>
+
+          <Route path='/cart' element={<Cart/>} />
+          <Route path='/placeorder' element={<PlaceOrder/>} />
+          <Route path='/verify' element={<Verify/>} />
+          <Route path='/myorders' element={<MyOrders/>} />
           
         </Routes>
       </UserContextProvider>

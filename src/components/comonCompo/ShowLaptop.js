@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, useContext } from "react";
 import axios from "axios";
 import { IoIosClose } from "react-icons/io";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
@@ -6,6 +6,8 @@ import HomePageBanner from "./HomePageBanner";
 import { FaCartPlus } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie"; // Assuming you are using the js-cookie library
+import { StoreContext } from '../../context/StoreContext.js';
+
 
 export default function ShowLaptop() {
   const [laptops, setLaptops] = useState([]);
@@ -17,19 +19,12 @@ export default function ShowLaptop() {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedBrand, setSelectedBrand] = useState(null);
 
+
+  const { addToCart, url, userId } = useContext(StoreContext);
+
   const scrollContainerRef = useRef(null);
-
-  const navigate = useNavigate();
-
-  // Function to handle the Add to Cart button
-  const handleAddToCart = () => {
-    const isLoggedIn = Cookies.get("token"); // Assuming 'token' is the cookie key storing the login state
-    if (isLoggedIn) {
-      navigate("/cart");
-    } else {
-      navigate("/signin");
-    }
-  };
+  const navigate = useNavigate();  
+    
 
   // Fetch laptops from the API
   const getLaptops = async () => {
@@ -317,7 +312,7 @@ export default function ShowLaptop() {
               <div className="pt-2">
               <button
           className="w-[150px] h-10 bg-orange-500 text-white rounded-lg"
-          onClick={handleAddToCart}
+          onClick={()=>addToCart(selectedLaptop._id, selectedLaptop.brand_name +" "+ selectedLaptop.model_name, selectedLaptop.price, selectedLaptop.images[0])}
         >
           <span className="flex items-center justify-between mx-6">
             <FaCartPlus /> Add to cart
