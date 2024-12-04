@@ -2,17 +2,21 @@ import React, { useContext, useState } from 'react';
 import { FaGripLines, FaCartPlus, FaCog, FaSignOutAlt } from 'react-icons/fa';
 import { UserContext } from '../../context/UserContext';
 import Logo from '../../images/logo.png';
+import CartModal from './CartModel'; // Import the CartModal component
 
 const CusHeaderBar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isDropdownmobileOpen, setIsDropdownmobileOpen] = useState(false);
   const [isMobileDropdownOpen, setIsMobileDropdownOpen] = useState(false);
+  const [isCartModalOpen, setIsCartModalOpen] = useState(false); // State for controlling cart modal
 
   const { user, loading, logout } = useContext(UserContext);
 
   const toggleDropdown = () => setIsDropdownOpen((prev) => !prev);
   const toggleDropdownmobile = () => setIsDropdownmobileOpen((prev) => !prev);
   const toggleMobileDropdown = () => setIsMobileDropdownOpen((prev) => !prev);
+
+  const toggleCartModal = () => setIsCartModalOpen((prev) => !prev); // Toggle function for cart modal
 
   const renderUserSection = () => {
     if (loading) {
@@ -69,7 +73,10 @@ const CusHeaderBar = () => {
           </div>
 
           {/* Cart Button */}
-          <button className="flex items-center justify-center h-12 px-4 py-2 text-center text-white transition-colors duration-300 bg-orange-500 rounded hover:text-gray-300 hover:bg-orange-700">
+          <button
+            onClick={toggleCartModal} // Open modal on cart button click
+            className="flex items-center justify-center h-12 px-4 py-2 text-center text-white transition-colors duration-300 bg-orange-500 rounded hover:text-gray-300 hover:bg-orange-700"
+          >
             <FaCartPlus size={30} />
             <span className="pl-2">Add Cart</span>
           </button>
@@ -102,7 +109,10 @@ const CusHeaderBar = () => {
           </div>
 
           {/* Mobile Cart Button */}
-          <button className="flex items-center justify-center mr-3 text-orange-500 rounded-full">
+          <button
+            onClick={toggleCartModal} // Open modal on mobile cart button click
+            className="flex items-center justify-center mr-3 text-orange-500 rounded-full"
+          >
             <FaCartPlus size={25} />
           </button>
 
@@ -124,6 +134,9 @@ const CusHeaderBar = () => {
           </button>
         </div>
       )}
+
+      {/* Cart Modal */}
+      <CartModal isOpen={isCartModalOpen} onClose={toggleCartModal} />
     </header>
   );
 };
