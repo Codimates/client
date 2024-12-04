@@ -1,6 +1,6 @@
 import React from 'react';
 import RegisterCompo from '../../components/userRegAndSignCompo/RegisterCompo';
-import BG from '../../images/bg1.jpg';
+import BG from '../../images/BGG1.jpeg';
 //import Lg from '../../images/logo.png'; // Correct import for the logo
 import LogHeader from '../../components/userRegAndSignCompo/LogHeader';
 

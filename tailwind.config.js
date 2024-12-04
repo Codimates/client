@@ -5,6 +5,7 @@ module.exports = {
   ],
   theme: {
     extend: {
+      
       fontFamily: {
         // If you want to customize the default sans font stack
         sans: [

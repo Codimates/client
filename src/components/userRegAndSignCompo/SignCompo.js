@@ -26,7 +26,7 @@ export default function SignCompo() {
         return;
       }
 
-      const response = await axios.post('/user/login', { email, password });
+      const response = await axios.post('/user/logincustomer', { email, password });
       const userData = response.data;
 
       if (userData.error) {
