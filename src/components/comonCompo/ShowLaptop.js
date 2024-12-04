@@ -4,9 +4,9 @@ import { IoIosClose } from "react-icons/io";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
 import HomePageBanner from "./HomePageBanner";
 import { FaCartPlus } from "react-icons/fa";
-import { useNavigate } from "react-router-dom";
-import Cookies from "js-cookie"; // Assuming you are using the js-cookie library
 import { StoreContext } from '../../context/StoreContext.js';
+import { toast } from 'react-hot-toast';
+
 
 
 export default function ShowLaptop() {
@@ -20,11 +20,9 @@ export default function ShowLaptop() {
   const [selectedBrand, setSelectedBrand] = useState(null);
 
 
-  const { addToCart, url, userId } = useContext(StoreContext);
+  const { addToCart } = useContext(StoreContext);
 
-  const scrollContainerRef = useRef(null);
-  const navigate = useNavigate();  
-    
+  const scrollContainerRef = useRef(null);    
 
   // Fetch laptops from the API
   const getLaptops = async () => {
@@ -312,7 +310,9 @@ export default function ShowLaptop() {
               <div className="pt-2">
               <button
           className="w-[150px] h-10 bg-orange-500 text-white rounded-lg"
-          onClick={()=>addToCart(selectedLaptop._id, selectedLaptop.brand_name +" "+ selectedLaptop.model_name, selectedLaptop.price, selectedLaptop.images[0])}
+          onClick={()=>{addToCart(selectedLaptop._id, selectedLaptop.brand_name +" "+ selectedLaptop.model_name, selectedLaptop.price, selectedLaptop.images[0])
+                        toast.success("Item Added to Cart");
+          }}
         >
           <span className="flex items-center justify-between mx-6">
             <FaCartPlus /> Add to cart
