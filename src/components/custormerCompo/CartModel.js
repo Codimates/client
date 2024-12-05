@@ -9,45 +9,73 @@ const CartModal = ({ isOpen, onClose }) => {
   const [placeAddress, setPlaceAddress] = useState('');
   const { user } = useContext(UserContext);
 
-  // Fetch cart data when modal is opened
-  useEffect(() => {
-    const fetchCartDetails = async () => {
-      if (!isOpen || !user) return;
+  
+ 
 
-      try {
-        setLoading(true);
-        // Fetch unpaid orders for the specific user
-        const response = await axios.get(`/order/user/${user._id}/unpaid`);
-        
-        const orders = response.data.data;
-        
-        // Flatten products from all unpaid orders
-        const userProducts = orders.flatMap(order => 
-          order.products.map(product => ({
-            ...product,
-            orderId: order._id,
-            place_address: order.place_address || ''
-          }))
-        );
-        
-        setCartItems(userProducts);
-        // Set place address from the first order (if available)
-        setPlaceAddress(userProducts[0]?.place_address || '');
-      } catch (err) {
-        console.error('Error fetching cart details:', err);
-        setError('Failed to load cart details');
-      } finally {
-        setLoading(false);
-      }
-    };
+// Fetch cart data and inventory details when modal is opened
+useEffect(() => {
+  const fetchCartDetails = async () => {
+    if (!isOpen || !user) return;
 
-    fetchCartDetails();
-  }, [isOpen, user]);
+    try {
+      setLoading(true);
+      // Fetch unpaid orders for the specific user
+      const response = await axios.get(`/order/user/${user._id}/unpaid`);
+      const orders = response.data.data;
 
-  // Calculate total price of all cart items
-  const calculateTotalPrice = () => {
-    return cartItems.reduce((total, item) => total + item.total_price, 0).toFixed(2);
+      // Flatten products from all unpaid orders
+      const userProducts = orders.flatMap(order => 
+        order.products.map(product => ({
+          ...product,
+          orderId: order._id,
+          place_address: order.place_address || '',
+        }))
+      );
+
+      // Fetch inventory details for each product
+      const inventoryDetailsPromises = userProducts.map(async (item) => {
+        try {
+          const inventoryResponse = await axios.get(`/inventory/getinventorybyid/${item.inventory_id}`);
+          return {
+            ...item,
+            brand_name: inventoryResponse.data.brand_name || '',
+            model_name: inventoryResponse.data.model_name || '',
+            images: inventoryResponse.data.images || [], // Ensure images is an array
+            image: inventoryResponse.data.images && inventoryResponse.data.images.length > 0 
+              ? inventoryResponse.data.images[0] 
+              : '' // Fallback for single image display
+          };
+        } catch (error) {
+          console.error('Error fetching inventory details:', error);
+          return {
+            ...item,
+            brand_name: '',
+            model_name: '',
+            images: [],
+            image: ''
+          };
+        }
+      });
+
+      const detailedProducts = await Promise.all(inventoryDetailsPromises);
+
+      setCartItems(detailedProducts);
+      setPlaceAddress(detailedProducts[0]?.place_address || '');
+    } catch (err) {
+      console.error('Error fetching cart details:', err);
+      setError('Failed to load cart details');
+    } finally {
+      setLoading(false);
+    }
   };
+
+  fetchCartDetails();
+}, [isOpen, user]);
+
+// Calculate total price of all cart items
+const calculateTotalPrice = () => {
+  return cartItems.reduce((total, item) => total + item.total_price, 0).toFixed(2);
+};
 
   // Handle adding quantity to an item
   const handleAddQuantity = async (orderId, productId) => {
@@ -201,6 +229,8 @@ const CartModal = ({ isOpen, onClose }) => {
     }
   };
 
+  
+
   if (!isOpen) return null;
 
   return (
@@ -220,7 +250,7 @@ const CartModal = ({ isOpen, onClose }) => {
             type="text"
             id="place_address"
             value={placeAddress}
-            onChange={handleAddressChange}
+            onChange={(e) => setPlaceAddress(e.target.value)}
             placeholder="Enter delivery address"
             className="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
@@ -244,18 +274,44 @@ const CartModal = ({ isOpen, onClose }) => {
           </div>
         )}
 
-        {!loading && cartItems.length > 0 && (
-          <div className="flex-grow pr-2 overflow-y-auto">
-            <ul className="space-y-4">
-              {cartItems.map((item) => (
-                <li 
-                  key={`${item.orderId}-${item.inventory_id}`} 
-                  className="flex items-center justify-between pb-3 border-b"
-                >
-                  <div className="flex-grow">
-                    <span className="font-medium">{item.inventory_id}</span>
-                    <div className="text-gray-600">
-                      Unit Price: ${item.unit_price.toFixed(2)}
+{!loading && cartItems.length > 0 && (
+  <div className="flex-grow pr-2 overflow-y-auto">
+    <ul className="space-y-4">
+      {cartItems.map((item) => (
+        <li 
+          key={`${item.orderId}-${item.inventory_id}`} 
+          className="flex items-center justify-between pb-3 border-b"
+        >
+          <div className="flex items-center space-x-4">
+            {/* Image display */}
+            <div className="flex items-center space-x-2">
+              {item.images && item.images.length > 0 ? (
+                <div className="flex space-x-2">
+                  {item.images.slice(0, 3).map((imageUrl, index) => (
+                    <img 
+                      key={index}
+                      src={imageUrl} 
+                      alt={`${item.brand_name} ${item.model_name} - Image ${index + 1}`} 
+                      className="object-cover w-16 h-16 border rounded-lg"
+                      onError={(e) => {
+                        e.target.src = '/path/to/default/image.png';
+                        e.target.onerror = null;
+                      }}
+                    />
+                  ))}
+                </div>
+              ) : (
+                <div className="flex items-center justify-center w-16 h-16 text-gray-500 bg-gray-200 rounded-lg">
+                  No Image
+                </div>
+              )}
+            </div>
+            <div>
+              <h3 className="font-medium">{item.brand_name || 'Unknown Brand'}</h3>
+              <p>{item.model_name || 'Unknown Model'}</p>
+              <p className="text-sm text-gray-500">
+                Unit Price: ${item.unit_price ? item.unit_price.toFixed(2) : '0.00'}
+              </p>
                     </div>
                   </div>
                   <div className="flex items-center space-x-4">
@@ -266,7 +322,7 @@ const CartModal = ({ isOpen, onClose }) => {
                       >
                         -
                       </button>
-                      <span className="mx-2">{item.quantity}</span>
+                      <span>{item.quantity}</span>
                       <button
                         onClick={() => handleAddQuantity(item.orderId, item.inventory_id)}
                         className="w-8 h-8 text-lg font-bold text-gray-600 border rounded hover:bg-gray-100"
@@ -274,13 +330,12 @@ const CartModal = ({ isOpen, onClose }) => {
                         +
                       </button>
                     </div>
-                    
                     <span className="font-semibold text-green-600">
                       Total: ${item.total_price.toFixed(2)}
                     </span>
                     <button
                       onClick={() => handleRemoveItem(item.orderId, item.inventory_id)}
-                      className="text-red-500 transition-colors hover:text-red-700"
+                      className="text-red-500 hover:text-red-700"
                     >
                       Remove
                     </button>
