@@ -34,7 +34,7 @@ const MyOrders = () => {
         {data.map((order, index) => (
             <div
                 key={index}
-                className="order grid grid-cols-[0.5fr_2.5fr_1fr_1fr_1fr] items-center gap-7 text-sm p-4 text-gray-700 border border-[#f97316] rounded-md"
+                className="order grid grid-cols-[2.5fr_1fr_1fr_1fr] items-center gap-7 text-sm p-4 text-gray-700 border border-[#f97316] rounded-md"
             >
                 <p>
                     {order.items.map((item, index) => {
