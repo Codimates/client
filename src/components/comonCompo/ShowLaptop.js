@@ -28,7 +28,7 @@ export default function ShowLaptop() {
   const handleAddToCart = async () => {
     const isLoggedIn = Cookies.get("token");
     if (!isLoggedIn) {
-      navigate("/login");
+      navigate("/signin");
       return;
     }
   
@@ -75,7 +75,7 @@ export default function ShowLaptop() {
         }
   
         // Update existing order
-        await axios.put(`/order/${orderId}`, {
+        await axios.put(`/order/update/${orderId}`, {
           products: orderProducts,
           overall_total_price: orderProducts.reduce((sum, product) => sum + product.total_price, 0)
         }, {
