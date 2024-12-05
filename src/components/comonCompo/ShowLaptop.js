@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useContext, useEffect, useState, useRef } from "react";
 import axios from "axios";
 import { IoIosClose } from "react-icons/io";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
@@ -6,6 +6,8 @@ import HomePageBanner from "./HomePageBanner";
 import { FaCartPlus } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie"; // Assuming you are using the js-cookie library
+import { UserContext } from '../../context/UserContext';
+import { toast } from 'react-hot-toast';
 
 export default function ShowLaptop() {
   const [laptops, setLaptops] = useState([]);
@@ -16,21 +18,108 @@ export default function ShowLaptop() {
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedBrand, setSelectedBrand] = useState(null);
+  const { user } = useContext(UserContext);
+  
 
   const scrollContainerRef = useRef(null);
 
   const navigate = useNavigate();
 
-  // Function to handle the Add to Cart button
-  const handleAddToCart = () => {
-    const isLoggedIn = Cookies.get("token"); // Assuming 'token' is the cookie key storing the login state
-    if (isLoggedIn) {
-      navigate("/cart");
-    } else {
+  const handleAddToCart = async () => {
+    const isLoggedIn = Cookies.get("token");
+    if (!isLoggedIn) {
       navigate("/signin");
+      return;
+    }
+  
+    if (!selectedLaptop) {
+      console.error("No laptop selected");
+      return;
+    }
+  
+    try {
+      // Check if an existing unpaid order exists
+      const existingOrderResponse = await axios.get(`/order/user/${user._id}/unpaid`, {
+        headers: {
+          Authorization: `Bearer ${Cookies.get("token")}`
+        }
+      });
+  
+      let orderId = null;
+      let orderProducts = [];
+  
+      if (existingOrderResponse.data.data.length > 0) {
+        // Use existing unpaid order
+        const existingOrder = existingOrderResponse.data.data[0];
+        orderId = existingOrder._id;
+        orderProducts = existingOrder.products;
+  
+        // Check if the laptop is already in the order
+        const existingProductIndex = orderProducts.findIndex(
+          product => product.inventory_id === selectedLaptop._id
+        );
+  
+        if (existingProductIndex !== -1) {
+          // Increase quantity if product exists
+          orderProducts[existingProductIndex].quantity += 1;
+          orderProducts[existingProductIndex].total_price = 
+            orderProducts[existingProductIndex].quantity * orderProducts[existingProductIndex].unit_price;
+        } else {
+          // Add new product to existing order
+          orderProducts.push({
+            inventory_id: selectedLaptop._id,
+            quantity: 1,
+            unit_price: selectedLaptop.price,
+            total_price: selectedLaptop.price
+          });
+        }
+  
+        // Update existing order
+        await axios.put(`/order/update/${orderId}`, {
+          products: orderProducts,
+          overall_total_price: orderProducts.reduce((sum, product) => sum + product.total_price, 0)
+        }, {
+          headers: {
+            Authorization: `Bearer ${Cookies.get("token")}`
+          }
+        });
+      } else {
+        // Create new order if no existing unpaid order
+        const orderData = {
+          user_id: user._id,
+          products: [
+            {
+              inventory_id: selectedLaptop._id,
+              quantity: 1,
+              unit_price: selectedLaptop.price,
+              total_price: selectedLaptop.price
+            }
+          ],
+          overall_total_price: selectedLaptop.price,
+          ispayed: false,
+          ispacked: false,
+          isdelivered: false,
+          place_address: user.address || ""
+        };
+  
+        await axios.post("/order/createorder", orderData, {
+          headers: {
+            Authorization: `Bearer ${Cookies.get("token")}`
+          }
+        });
+      }
+  
+      // Show success message
+      toast.success("Item added to cart");
+  
+      // Optional: Refresh laptop list or navigate
+      //navigate("/cart");
+  
+    } catch (error) {
+      console.error("Error managing order:", error);
+      toast.error(error.response?.data?.message || "Failed to add item to order. Please try again.");
     }
   };
-
   // Fetch laptops from the API
   const getLaptops = async () => {
     try {
