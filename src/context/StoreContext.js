@@ -17,12 +17,19 @@ const StoreContextProvider = (props) => {
 
     useEffect(()=>{
         const loadCartData = async () => {
-        const response = await axios.post(url+"/api/cart/get",{userId});
-        
-        if(response.data.success){
-        setCartId(response.data.cart._id)
-        setCartItems(response.data.cartData);
+        try {
+            const response = await axios.post(url+"/api/cart/get",{userId});
+            if(response.data.success){
+                setCartId(response.data.cart._id)
+                setCartItems(response.data.cartData);
+                }
+            else {
+                setCartItems([]);
+            }
+        } catch (error) {
+            setCartItems([]);
         }
+        
     }
     loadCartData();
     getTotalCartAmount();
