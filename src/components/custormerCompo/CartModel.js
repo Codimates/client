@@ -1,6 +1,10 @@
 import React, { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import { UserContext } from '../../context/UserContext';
+import { loadStripe } from '@stripe/stripe-js';
+import CheckoutForm from '../payment/CheckoutForm';
+import { Elements } from '@stripe/react-stripe-js';
+
 
 const CartModal = ({ isOpen, onClose }) => {
   const [cartItems, setCartItems] = useState([]);
@@ -9,6 +13,50 @@ const CartModal = ({ isOpen, onClose }) => {
   const [placeAddress, setPlaceAddress] = useState('');
   const [isAddressEditing, setIsAddressEditing] = useState(false);
   const { user } = useContext(UserContext);
+  
+  const stripePromise = loadStripe('pk_test_51QSgJEAmilHOBn6cQ0yhtMDnzqs98UozfcFrDEBco1EItSseJDO75SlhVDI2llcMjtFxu75iWgijdrjoybV5hsMx00TPEHoj3R');
+
+  const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
+
+  
+  // Updated payment handler
+  const handlepayment = async () => {
+    if (!placeAddress.trim()) {
+      setError('Please add a delivery address before proceeding');
+      return;
+    }
+
+    setIsPaymentModalOpen(true);
+  };
+
+  // Payment success handler
+  const handlePaymentSuccess = async (paymentIntent) => {
+    try {
+      // Update all cart orders as paid
+      const orderIds = [...new Set(cartItems.map(item => item.orderId))];
+      
+      await Promise.all(orderIds.map(async (orderId) => {
+        await axios.put(`/order/update/${orderId}`, {
+          ispayed: true,
+          payment_intent_id: paymentIntent.id
+        });
+      }));
+
+      // Reset cart and close modals
+      setCartItems([]);
+      setIsPaymentModalOpen(false);
+      onClose();
+    } catch (err) {
+      console.error('Error updating orders:', err);
+      setError('Failed to process payment');
+    }
+  };
+
+  // Payment failure handler
+  const handlePaymentFailure = (error) => {
+    console.error('Payment failed:', error);
+    setError('Payment processing failed. Please try again.');
+  };
 
   // Fetch cart data and inventory details when modal is opened
   useEffect(() => {
@@ -201,23 +249,6 @@ const CartModal = ({ isOpen, onClose }) => {
     }
   };
 
-  // Handle checkout process
-  const handleCheckout = async () => {
-    try {
-      const orderIds = [...new Set(cartItems.map(item => item.orderId))];
-
-      await axios.post('/order/checkout', {
-        orders: orderIds,
-        place_address: placeAddress
-      });
-
-      setCartItems([]);
-      onClose();
-    } catch (err) {
-      console.error('Checkout error:', err);
-      setError('Failed to complete checkout');
-    }
-  };
 
   if (!isOpen) return null;
 
@@ -373,13 +404,34 @@ const CartModal = ({ isOpen, onClose }) => {
             Close
           </button>
           <button
-            onClick={handleCheckout}
+            onClick={handlepayment}
             disabled={cartItems.length === 0}
             className="px-4 py-2 text-white transition-colors bg-blue-600 rounded-lg hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed"
           >
-            Checkout
+            payment confirm
           </button>
         </div>
+        {isPaymentModalOpen && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-60">
+          <div className="bg-white p-6 rounded-lg w-[400px]">
+            <h2 className="mb-4 text-xl font-bold">Complete Payment</h2>
+            <Elements stripe={stripePromise}>
+              <CheckoutForm 
+                cartItems={cartItems}
+                totalPrice={parseFloat(calculateTotalPrice())}
+                onPaymentSuccess={handlePaymentSuccess}
+                onPaymentFailure={handlePaymentFailure}
+              />
+            </Elements>
+            <button 
+              onClick={() => setIsPaymentModalOpen(false)}
+              className="w-full py-2 mt-4 text-gray-600 border border-gray-300 rounded-lg hover:bg-gray-100"
+            >
+              Cancel
+            </button>
+          </div>
+        </div>
+      )}
       </div>
     </div>
   );
