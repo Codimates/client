@@ -14,13 +14,13 @@ import CusHeaderBar from './components/custormerCompo/CusHeaderBar';
 
 
 // axios.defaults.baseURL = 'http://localhost:4000';
-axios.defaults.baseURL = 'http://141.144.204.231/nginx/ead2/';
+axios.defaults.baseURL = 'http://gateway:4000';
 axios.defaults.withCredentials = false
 
 function App() {
   return (
     <div className="App">
-      <BrowserRouter basename="/nginx/ead">
+      <BrowserRouter>
       <UserContextProvider>
         <Toaster position='bottom-right' toastOptions={{duration: 3000}}></Toaster>
         <Routes>
