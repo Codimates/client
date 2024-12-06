@@ -20,7 +20,7 @@ axios.defaults.withCredentials = false
 function App() {
   return (
     <div className="App">
-      <BrowserRouter>
+      <BrowserRouter basename="/nginx/ead">
       <UserContextProvider>
         <Toaster position='bottom-right' toastOptions={{duration: 3000}}></Toaster>
         <Routes>
