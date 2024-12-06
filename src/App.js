@@ -20,17 +20,17 @@ axios.defaults.withCredentials = false
 function App() {
   return (
     <div className="App">
-      <BrowserRouter basename="http://141.144.204.231/client">
+      <BrowserRouter>
       <UserContextProvider>
         <Toaster position='bottom-right' toastOptions={{duration: 3000}}></Toaster>
         <Routes>
 
-          <Route path="/" element={<HomePage/>} />
-          <Route path='/signin' element={<SignPage/>}/>
-          <Route path='/register' element={<RegisterPage/>}/>
+          <Route path="http://141.144.204.231/client" element={<HomePage/>} />
+          <Route path='http://141.144.204.231/client/signin' element={<SignPage/>}/>
+          <Route path='http://141.144.204.231/client/register' element={<RegisterPage/>}/>
 
-          <Route path='/home' element={<ProtectedRoute><LandingPage/></ProtectedRoute>}/>
-          <Route path='/navbaruser' element={<ProtectedRoute><CusHeaderBar/></ProtectedRoute>}/>
+          <Route path='http://141.144.204.231/client/home' element={<ProtectedRoute><LandingPage/></ProtectedRoute>}/>
+          <Route path='http://141.144.204.231/client/navbaruser' element={<ProtectedRoute><CusHeaderBar/></ProtectedRoute>}/>
           
         </Routes>
       </UserContextProvider>
