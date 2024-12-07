@@ -14,7 +14,7 @@ import CusHeaderBar from './components/custormerCompo/CusHeaderBar';
 
 
 // axios.defaults.baseURL = 'http://localhost:4000';
-axios.defaults.baseURL = 'http://141.144.204.231/gateway';
+axios.defaults.baseURL = 'http://141.144.204.231:4000';
 axios.defaults.withCredentials = false
 
 function App() {
